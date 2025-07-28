@@ -5,7 +5,7 @@ metadata:
   name: my-solrcloud-v9
   namespace: solr3
 spec:
-  replicas: 2
+  replicas: 5
   solrImage:
     repository: solr
     tag: 9.5.0
