@@ -1,0 +1,6 @@
+###########################
+# 4. Kustomization.yaml
+###########################
+resources:
+  - helm_release.yaml
+  - helm_repository.yaml

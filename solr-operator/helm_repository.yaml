@@ -1,0 +1,11 @@
+###########################
+# 1. HelmRepository
+##########################################
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: apache-solr-chart ##########
+  namespace: solr3
+spec:
+  interval: 1m
+  url: https://solr.apache.org/charts

@@ -1,0 +1,55 @@
+
+apiVersion: solr.apache.org/v1beta1
+kind: SolrCloud
+metadata:
+  name: my-solrcloud-v9
+  namespace: solr3
+spec:
+  replicas: 2
+  solrImage:
+    repository: solr
+    tag: 9.5.0
+
+  dataStorage:
+    persistent:
+      reclaimPolicy: Retain
+      pvcTemplate:
+        spec:
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 10Gi
+          storageClassName: default
+
+  customSolrKubeOptions:
+    podOptions:
+      labels:
+        solr-cloud: my-solrcloud-v9
+        technology: solr-cloud
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: technology
+                    operator: In
+                    values:
+                      - solr-cloud
+                  - key: solr-cloud
+                    operator: In
+                    values:
+                      - my-solrcloud-v9
+              topologyKey: kubernetes.io/hostname
+
+  zookeeperRef:
+    provided:
+      replicas: 3
+      persistence:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 5Gi
+
+

@@ -1,0 +1,6 @@
+###########################
+# 4. Kustomization.yaml
+###########################
+resources:
+  - solr-loadbalancer.yaml
+  - solr_cloud.yaml
